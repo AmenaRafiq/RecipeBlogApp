@@ -1,13 +1,7 @@
 ﻿<div>
-    <h3>Upload Image</h3>
+    <h2>Upload Image</h2>
     <form method="post" enctype="multipart/form-data">
         <input type="file" name="fileUpload" />
         <input type="submit" value="Upload" />
     </form>
-</div>
-<div>
-    @if (ViewData["Image"] != null)
-    {
-        <img src="data:image/png;base64, @ViewData["Image"]" />
-    }
 </div>

@@ -30,51 +30,20 @@ namespace RecipeBlogApp.Controllers
             return View(allCards);
         }
 
-        //[Route("AddImage/{RecipeID:int}")]
-        //public IActionResult AddImage(int RecipeID)
-        //{
-        //    var recipeByID = dbContext.Recipes.FirstOrDefault(r => r.ID == RecipeID);
-        //    return View(recipeByID);
-        //}
-        //[HttpPost("AddImage/{RecipeID:int}")]
-        //public async Task<IActionResult> AddImageAsync(AddRecipeCardBindingModel recipeCardBindingModel, IFormFile fileUpload, int RecipeID)
-        //{
-            
-        //    var file = fileUpload;
-        //    using var ms = new MemoryStream();
-        //    await file.CopyToAsync(ms);
-        //    var bytes = ms.ToArray();
-        //    var base64String = Convert.ToBase64String(bytes);
-
-        //    var recipeByID = dbContext.Recipes.FirstOrDefault(r => r.ID == RecipeID);
-        //    recipeByID.ImageURL = base64String;
-        //    dbContext.SaveChanges();
-
-        //    return RedirectToAction("Index");
-
-        //}
-
         //CREATE
-        [Route("CreateRecipe")]
+        [Route("createrecipe")]
         public IActionResult CreateRecipe()
         {
             return View();
         }
-        [HttpPost("CreateRecipe")]
-        public async Task<IActionResult> CreateRecipeAsync(AddRecipeBindingModel recipeBindingModel, IFormFile ImageURL)
+        [HttpPost("createrecipe")]
+        public IActionResult CreateRecipeAsync(AddRecipeBindingModel recipeBindingModel, IFormFile ImageURL)
         {
-
-            var file = ImageURL;
-            using var ms = new MemoryStream();
-            await file.CopyToAsync(ms);
-            var bytes = ms.ToArray();
-            var base64String = Convert.ToBase64String(bytes);
-
             //create an entry in the recipes table
             var recipeToCreate = new Recipe
             {
                 Title = recipeBindingModel.Title,
-                ImageURL = base64String,
+                ImageURL = "",
                 Ingredients = recipeBindingModel.Ingredients,
                 Method = recipeBindingModel.Method,
                 Servings = recipeBindingModel.Servings,
@@ -82,20 +51,44 @@ namespace RecipeBlogApp.Controllers
             dbContext.Recipes.Add(recipeToCreate);
             dbContext.SaveChanges();
 
+            //go to separate method to add image - just to make it faster
+            //when adding image method was inside this method, it took very long to create a post
+            return RedirectToAction("AddImage", new { id = recipeToCreate.ID });
+        }
+
+        [Route("addimage/{id:int}")]
+        public IActionResult AddImage(int id)
+        {
+            var recipeByID = dbContext.Recipes.FirstOrDefault(r => r.ID == id);
+            return View(recipeByID);
+        }
+        [HttpPost("addimage/{id:int}")]
+        public async Task<IActionResult> AddImageAsync(IFormFile fileUpload, int id)
+        {
+
+            var file = fileUpload;
+            using var ms = new MemoryStream();
+            await file.CopyToAsync(ms);
+            var bytes = ms.ToArray();
+            var base64String = Convert.ToBase64String(bytes);
+
+            var recipeByID = dbContext.Recipes.FirstOrDefault(r => r.ID == id);
+            recipeByID.ImageURL = base64String;
+            dbContext.SaveChanges();
+
             //create an entry in the recipe cards table
             var recipeCardToCreate = new RecipeCard
             {
-                Recipe = recipeToCreate,
-                Title = recipeToCreate.Title,
+                Recipe = recipeByID,
+                Title = recipeByID.Title,
                 ImageURL = base64String,
             };
             dbContext.RecipeCards.Add(recipeCardToCreate);
             dbContext.SaveChanges();
 
-            //go to form to add image
             return RedirectToAction("Index");
-        }
 
+        }
 
 
 
