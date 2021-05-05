@@ -1,8 +1,19 @@
-﻿@{
-    ViewData["Title"] = "Home Page";
-}
+﻿@model IEnumerable<RecipeBlogLibrary.Models.RecipeCard>
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+@{ ViewData["Title"] = "Index"; }
+
+<h1>Home</h1>
+
+<!--<p>-->
+@*<a asp-action="Create">Create New Post</a>*@
+<!--</p>-->
+<div class="card-deck">
+    @foreach (var item in Model)
+    {
+<div class="card">
+    <img class="card-img-top" src="@item.ImageURL" style="height:128px;" alt="Recipe's image">
+    <div class="card-body">
+        <h5 class="card-title">@Html.DisplayFor(modelItem => item.Title)</h5>
+    </div>
+</div>}
 </div>

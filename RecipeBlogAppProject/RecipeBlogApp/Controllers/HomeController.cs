@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
+using RecipeBlogApp.Data;
 using RecipeBlogApp.Models;
 using System;
 using System.Collections.Generic;
@@ -11,16 +12,17 @@ namespace RecipeBlogApp.Controllers
 {
     public class HomeController : Controller
     {
-        private readonly ILogger<HomeController> _logger;
-
-        public HomeController(ILogger<HomeController> logger)
+        private readonly ApplicationDbContext dbContext;
+        public HomeController(ApplicationDbContext applicationDbContext)
         {
-            _logger = logger;
+            dbContext = applicationDbContext;
         }
 
+        [Route("")]
         public IActionResult Index()
         {
-            return View();
+            var allCards = dbContext.RecipeCards.ToList();
+            return View(allCards);
         }
 
         public IActionResult Privacy()
