@@ -35,23 +35,31 @@ namespace RecipeBlogApp.Controllers
             return View();
         }
         [HttpPost("CreateRecipe")]
-        public IActionResult CreateRecipe(AddRecipeBindingModel bindingModel)
+        public IActionResult CreateRecipe(AddRecipeBindingModel recipeBindingModel)
         {
+            //create an entry in the recipes table
             var recipeToCreate = new Recipe
             {
-                Title = bindingModel.Title,
-                ImageURL = bindingModel.ImageURL,
-                Ingredients = bindingModel.Ingredients,
-                Method = bindingModel.Method,
-                Servings = bindingModel.Servings,
+                Title = recipeBindingModel.Title,
+                ImageURL = recipeBindingModel.ImageURL,
+                Ingredients = recipeBindingModel.Ingredients,
+                Method = recipeBindingModel.Method,
+                Servings = recipeBindingModel.Servings,
             };
+            dbContext.Recipes.Add(recipeToCreate);
+            dbContext.SaveChanges();
+
+            //create an entry in the recipe cards table
             var recipeCardToCreate = new RecipeCard
             {
-                Title = bindingModel.Title,
-                ImageURL = bindingModel.ImageURL,
+                Recipe = recipeToCreate,
+                Title = recipeToCreate.Title,
+                ImageURL = recipeToCreate.ImageURL,
             };
             dbContext.RecipeCards.Add(recipeCardToCreate);
             dbContext.SaveChanges();
+
+            //go back to home page
             return RedirectToAction("Index");
         }
 
