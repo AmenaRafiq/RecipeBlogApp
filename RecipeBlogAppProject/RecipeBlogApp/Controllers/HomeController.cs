@@ -2,6 +2,8 @@
 using Microsoft.Extensions.Logging;
 using RecipeBlogApp.Data;
 using RecipeBlogApp.Models;
+using RecipeBlogLibrary.Models;
+using RecipeBlogLibrary.Models.Binding;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -18,12 +20,47 @@ namespace RecipeBlogApp.Controllers
             dbContext = applicationDbContext;
         }
 
+        //READ
         [Route("")]
         public IActionResult Index()
         {
             var allCards = dbContext.RecipeCards.ToList();
             return View(allCards);
         }
+
+        //CREATE
+        [Route("CreateRecipe")]
+        public IActionResult CreateRecipe()
+        {
+            return View();
+        }
+        [HttpPost("CreateRecipe")]
+        public IActionResult CreateRecipe(AddRecipeBindingModel bindingModel)
+        {
+            var recipeToCreate = new Recipe
+            {
+                Title = bindingModel.Title,
+                ImageURL = bindingModel.ImageURL,
+                Ingredients = bindingModel.Ingredients,
+                Method = bindingModel.Method,
+                Servings = bindingModel.Servings,
+            };
+            var recipeCardToCreate = new RecipeCard
+            {
+                Title = bindingModel.Title,
+                ImageURL = bindingModel.ImageURL,
+            };
+            dbContext.RecipeCards.Add(recipeCardToCreate);
+            dbContext.SaveChanges();
+            return RedirectToAction("Index");
+        }
+
+
+
+
+
+
+
 
         public IActionResult Privacy()
         {
