@@ -21,6 +21,7 @@
     <p>Number of servings: @Html.DisplayNameFor(model => model.Servings)</p>
 
     <div>
-        <a asp-action="Index">Back to Home</a>
+        <a asp-action="Index">Back to Home</a> |
+        @Html.ActionLink("Delete", "Delete", new { id = Model.ID }) 
     </div>
 </div>

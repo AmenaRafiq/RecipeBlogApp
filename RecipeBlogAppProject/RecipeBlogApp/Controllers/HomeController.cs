@@ -98,6 +98,21 @@ namespace RecipeBlogApp.Controllers
 
         }
 
+        //DELETE
+        [Route("delete/{id:int}")]
+        public IActionResult Delete(int id)
+        {
+            //get the recipe
+            var recipeToDelete = dbContext.Recipes.FirstOrDefault(r => r.ID == id);
+            //use this to find the right card
+            var recipeCardToDelete = dbContext.RecipeCards.FirstOrDefault(r => r.Recipe == recipeToDelete);
+            //first delete the card due to the relation
+            dbContext.RecipeCards.Remove(recipeCardToDelete);
+            //dbContext.SaveChanges();
+            dbContext.Recipes.Remove(recipeToDelete);
+            dbContext.SaveChanges();
+            return RedirectToAction("Index");
+        }
 
 
 
