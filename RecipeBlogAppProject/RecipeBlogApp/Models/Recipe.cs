@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace RecipeBlogLibrary.Models
+namespace RecipeBlogApp.Models
 {
 
     public class Recipe

@@ -1,4 +1,4 @@
-﻿@model IEnumerable<RecipeBlogLibrary.Models.RecipeCard>
+﻿@model IEnumerable<RecipeBlogApp.Models.RecipeCard>
 
 @{ ViewData["Title"] = "Index"; }
 
@@ -14,6 +14,7 @@
     <img class="card-img-top" src="data:image/jpg;base64, @item.Image" style="height:128px; width:200px" alt="Recipe's image">
     <div class="card-body">
         <h5 class="card-title">@Html.DisplayFor(modelItem => item.Title)</h5>
+        <p>@Html.ActionLink("View Recipe", "Details", new { id = item.ID })</p>
     </div>
 </div>}
 </div>

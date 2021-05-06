@@ -3,8 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using RecipeBlogApp.Data;
 using RecipeBlogApp.Models;
-using RecipeBlogLibrary.Models;
-using RecipeBlogLibrary.Models.Binding;
+using RecipeBlogApp.Models.Binding;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -31,10 +30,11 @@ namespace RecipeBlogApp.Controllers
         }
 
         //READ
-        public IActionResult Details()
+        [Route("details/{id:int}")]
+        public IActionResult Details(int id)
         {
-            var allCards = dbContext.RecipeCards.ToList();
-            return View(allCards);
+            var recipeByID = dbContext.Recipes.FirstOrDefault(r => r.ID == id);
+            return View(recipeByID);
         }
 
         //CREATE

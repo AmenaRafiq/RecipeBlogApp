@@ -1,0 +1,26 @@
+﻿@model RecipeBlogApp.Models.Recipe
+
+<style>
+    .content {
+        max-width: 500px;
+        margin: auto;
+        padding: 10px;
+    }
+
+    img {
+        width: 50%;
+        height: auto;
+    }
+
+</style>
+<div class="content">
+    <h2>@Html.DisplayNameFor(model => model.Title)</h2>
+    <img src="data:image/jpg;base64, @Model.Image" width="150" height="100" alt="Recipe's image">
+    <p>List of Ingredients: @Html.DisplayNameFor(model => model.Ingredients)</p>
+    <p>Method:@Html.DisplayNameFor(model => model.Method)</p>
+    <p>Number of servings: @Html.DisplayNameFor(model => model.Servings)</p>
+
+    <div>
+        <a asp-action="Index">Back to Home</a>
+    </div>
+</div>
