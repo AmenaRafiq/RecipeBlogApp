@@ -30,6 +30,13 @@ namespace RecipeBlogApp.Controllers
             return View(allCards);
         }
 
+        //READ
+        public IActionResult Details()
+        {
+            var allCards = dbContext.RecipeCards.ToList();
+            return View(allCards);
+        }
+
         //CREATE
         [Route("createrecipe")]
         public IActionResult CreateRecipe()
