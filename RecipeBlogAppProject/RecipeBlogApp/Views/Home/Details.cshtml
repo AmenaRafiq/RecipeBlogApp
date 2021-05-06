@@ -23,6 +23,7 @@
 
     <div>
         <a asp-action="Index">Back to Home</a> |
+        @Html.ActionLink("Edit", "Update", new { id = Model.ID }) |
         @Html.ActionLink("Delete", "Delete", new { id = Model.ID })
     </div>
 </div>

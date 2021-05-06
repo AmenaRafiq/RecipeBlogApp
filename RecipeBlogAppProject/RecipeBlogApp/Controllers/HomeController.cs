@@ -47,7 +47,7 @@ namespace RecipeBlogApp.Controllers
         [HttpPost("createrecipe")]
         public IActionResult CreateRecipeAsync(AddRecipeBindingModel recipeBindingModel, IFormFile fileUpload)
         {
-            //get file
+            //get base64String of file
             string image = GetFileBase64Async(fileUpload).Result;
 
             //create an entry in the recipes table
@@ -76,13 +76,7 @@ namespace RecipeBlogApp.Controllers
             return RedirectToAction("Index");
         }
 
-        //[Route("addimage/{id:int}")]
-        //public IActionResult AddImage(int id)
-        //{
-        //    var recipeByID = dbContext.Recipes.FirstOrDefault(r => r.ID == id);
-        //    return View(recipeByID);
-        //}
-        //[HttpPost("addimage/{id:int}")]
+        //This method takes an IFormFile, converts it into base64String and returns the string
         public async Task<string> GetFileBase64Async(IFormFile fileUpload)
         {
             //IForm code here was created using the example shown at https://code-maze.com/file-upload-aspnetcore-mvc/, alongside a discussion with an SME.
@@ -92,63 +86,55 @@ namespace RecipeBlogApp.Controllers
             var bytes = ms.ToArray();
             string base64String = Convert.ToBase64String(bytes);
 
-            ////find and update that recipe's Image 
-            //var recipeByID = dbContext.Recipes.FirstOrDefault(r => r.ID == id);
-            //recipeByID.Image = base64String;
-            //dbContext.SaveChanges();
-
-            ////create an entry in the recipe cards table
-            //var recipeCardToCreate = new RecipeCard
-            //{
-            //    Recipe = recipeByID,
-            //    Title = recipeByID.Title,
-            //    Image = base64String,
-            //};
-            //dbContext.RecipeCards.Add(recipeCardToCreate);
-            //dbContext.SaveChanges();
-
             return base64String;
-
-            //return RedirectToAction("Index");
 
         }
 
-        ////UPDATE
-        //[Route("update/{id:int}")]
-        //public IActionResult Update(int id)
-        //{
-        //    var recipeById = dbContext.Recipes.FirstOrDefault(c => c.ID == id);
-        //    return View(recipeById);
-        //}
-        //[HttpPost]
-        //[Route("update/{id:int}")]
-        //public IActionResult Update(Recipe recipe, int id, IFormFile fileUpload)
-        //{
-        //    var recipeToUpdate = dbContext.Recipes.FirstOrDefault(r => r.ID == id);
-        //    recipeToUpdate.Title = recipe.Title;
-        //    //recipeToUpdate.Image = recipe.Image;
-        //    recipeToUpdate.Ingredients = recipe.Ingredients;
-        //    recipeToUpdate.Method = recipe.Method;
-        //    recipeToUpdate.Servings = recipe.Servings;
+        //UPDATE
+        [Route("update/{id:int}")]
+        public IActionResult Update(int id)
+        {
+            var recipeById = dbContext.Recipes.FirstOrDefault(c => c.ID == id);
+            return View(recipeById);
+        }
+        [HttpPost]
+        [Route("update/{id:int}")]
+        public IActionResult Update(Recipe recipe, int id, IFormFile fileUpload)
+        {
+            string image = null;
+            //check if there is a new file to upload
+            if (fileUpload != null)
+            {
+                //get new image
+                image = GetFileBase64Async(fileUpload).Result;
+            }
 
-        //    //Image
-        //    if ()
-        //    var file = fileUpload;
-        //    using var ms = new MemoryStream();
-        //    await file.CopyToAsync(ms);
-        //    var bytes = ms.ToArray();
-        //    var base64String = Convert.ToBase64String(bytes);
+            //update the recipe
+            var recipeToUpdate = dbContext.Recipes.FirstOrDefault(r => r.ID == id);
+            recipeToUpdate.Title = recipe.Title;
+            //only overwrite image if a new file was uploaded
+            if (image != null)
+            {
+                recipeToUpdate.Image = image;
+            }
+            recipeToUpdate.Ingredients = recipe.Ingredients;
+            recipeToUpdate.Method = recipe.Method;
+            recipeToUpdate.Servings = recipe.Servings;
+            dbContext.SaveChanges();
 
-        //    //find and update that recipe's Image 
-        //    var recipeByID = dbContext.Recipes.FirstOrDefault(r => r.ID == id);
-        //    recipeByID.Image = base64String;
+            //Update the Card
+            var recipecardToUpdate = dbContext.RecipeCards.FirstOrDefault(r => r.Recipe == recipeToUpdate);
+            recipecardToUpdate.Title = recipe.Title;
+            //only overwrite image if a new file was uploaded
+            if (image != null)
+            {
+                recipecardToUpdate.Image = image;
+            }
+            
 
-        //    dbContext.SaveChanges();
-        //    return RedirectToAction("Index");
-        //}
-
-
-
+            dbContext.SaveChanges();
+            return RedirectToAction("Details", new { id = id });
+        }
 
         //DELETE
         [Route("delete/{id:int}")]
