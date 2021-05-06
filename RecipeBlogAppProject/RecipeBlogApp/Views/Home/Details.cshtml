@@ -11,17 +11,18 @@
         width: 50%;
         height: auto;
     }
-
 </style>
 <div class="content">
-    <h2>@Html.DisplayNameFor(model => model.Title)</h2>
+    <h2>@Html.DisplayFor(model => model.Title)</h2>
+
     <img src="data:image/jpg;base64, @Model.Image" width="150" height="100" alt="Recipe's image">
-    <p>List of Ingredients: @Html.DisplayNameFor(model => model.Ingredients)</p>
-    <p>Method:@Html.DisplayNameFor(model => model.Method)</p>
-    <p>Number of servings: @Html.DisplayNameFor(model => model.Servings)</p>
+
+    <p>List of Ingredients: @Html.DisplayFor(model => model.Ingredients)</p>
+    <p>Method:@Html.DisplayFor(model => model.Method)</p>
+    <p>Number of servings: @Html.DisplayFor(model => model.Servings)</p>
 
     <div>
         <a asp-action="Index">Back to Home</a> |
-        @Html.ActionLink("Delete", "Delete", new { id = Model.ID }) 
+        @Html.ActionLink("Delete", "Delete", new { id = Model.ID })
     </div>
 </div>

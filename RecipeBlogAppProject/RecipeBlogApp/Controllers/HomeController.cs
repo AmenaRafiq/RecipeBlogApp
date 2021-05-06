@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 using RecipeBlogApp.Data;
 using RecipeBlogApp.Models;
@@ -25,7 +26,7 @@ namespace RecipeBlogApp.Controllers
         //[Route("")]
         public IActionResult Index()
         {
-            var allCards = dbContext.RecipeCards.ToList();
+            var allCards = dbContext.RecipeCards.Include(r => r.Recipe).ToList();
             return View(allCards);
         }
 
@@ -104,11 +105,15 @@ namespace RecipeBlogApp.Controllers
         {
             //get the recipe
             var recipeToDelete = dbContext.Recipes.FirstOrDefault(r => r.ID == id);
+
             //use this to find the right card
             var recipeCardToDelete = dbContext.RecipeCards.FirstOrDefault(r => r.Recipe == recipeToDelete);
+
             //first delete the card due to the relation
             dbContext.RecipeCards.Remove(recipeCardToDelete);
-            //dbContext.SaveChanges();
+            dbContext.SaveChanges();
+
+            //delete the recipe from the recipes table
             dbContext.Recipes.Remove(recipeToDelete);
             dbContext.SaveChanges();
             return RedirectToAction("Index");
