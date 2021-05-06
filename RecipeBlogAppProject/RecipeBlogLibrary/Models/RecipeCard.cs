@@ -11,6 +11,6 @@ namespace RecipeBlogLibrary.Models
         public int ID { get; set; }
         public virtual Recipe Recipe { get; set; }
         public string Title { get; set; }
-        public string ImageURL { get; set; }
+        public string Image { get; set; }
     }
 }

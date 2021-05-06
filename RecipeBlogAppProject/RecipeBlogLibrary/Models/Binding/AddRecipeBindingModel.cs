@@ -9,7 +9,7 @@ namespace RecipeBlogLibrary.Models.Binding
     public class AddRecipeBindingModel
     {
         public string Title { get; set; }
-        public string ImageURL { get; set; }
+        public string Image { get; set; }
         public string Ingredients { get; set; }
         public string Method { get; set; }
         public int Servings { get; set; }

@@ -13,7 +13,7 @@ namespace RecipeBlogLibrary.Models
         public int ID { get; set; }
         [Required]
         public string Title { get; set; }
-        public string ImageURL { get; set; }
+        public string Image { get; set; }
         [Required]
         public string Ingredients { get; set; }
         [Required]

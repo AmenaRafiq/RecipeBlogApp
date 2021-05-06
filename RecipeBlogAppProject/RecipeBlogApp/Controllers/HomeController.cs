@@ -39,11 +39,11 @@ namespace RecipeBlogApp.Controllers
         [HttpPost("createrecipe")]
         public IActionResult CreateRecipeAsync(AddRecipeBindingModel recipeBindingModel, IFormFile ImageURL)
         {
-            //create an entry in the recipes table
+            //create an entry in the recipes table - empty image for now
             var recipeToCreate = new Recipe
             {
                 Title = recipeBindingModel.Title,
-                ImageURL = "",
+                Image = "",
                 Ingredients = recipeBindingModel.Ingredients,
                 Method = recipeBindingModel.Method,
                 Servings = recipeBindingModel.Servings,
@@ -65,15 +65,16 @@ namespace RecipeBlogApp.Controllers
         [HttpPost("addimage/{id:int}")]
         public async Task<IActionResult> AddImageAsync(IFormFile fileUpload, int id)
         {
-
+            //IForm code here was created using the example shown at https://code-maze.com/file-upload-aspnetcore-mvc/, alongside a discussion with an SME.
             var file = fileUpload;
             using var ms = new MemoryStream();
             await file.CopyToAsync(ms);
             var bytes = ms.ToArray();
             var base64String = Convert.ToBase64String(bytes);
 
+            //find and update that recipe's Image 
             var recipeByID = dbContext.Recipes.FirstOrDefault(r => r.ID == id);
-            recipeByID.ImageURL = base64String;
+            recipeByID.Image = base64String;
             dbContext.SaveChanges();
 
             //create an entry in the recipe cards table
@@ -81,7 +82,7 @@ namespace RecipeBlogApp.Controllers
             {
                 Recipe = recipeByID,
                 Title = recipeByID.Title,
-                ImageURL = base64String,
+                Image = base64String,
             };
             dbContext.RecipeCards.Add(recipeCardToCreate);
             dbContext.SaveChanges();
