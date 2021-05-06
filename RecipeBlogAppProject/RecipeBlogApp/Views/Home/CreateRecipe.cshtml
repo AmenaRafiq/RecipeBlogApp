@@ -3,18 +3,32 @@
 
 <h1>Create New Recipe Post</h1>
 
+<!--<h2>Upload Image</h2>
+<p>Please note: supported file types are .jpg, .jpeg and .png files</p>
+
+<form method="post" enctype="multipart/form-data">
+    <input type="file" name="fileUpload" />-->
+    @*<input type="submit" value="Upload" />*@
+<!--</form>-->
+
 <div class="row">
     <div class="col-md-4">
-        <form asp-action="CreateRecipe">
+        <form asp-action="CreateRecipe" method="post" enctype="multipart/form-data">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
                 <label asp-for="Title" class="control-label"></label>
-                <input asp-for="Title" class="form-control" placeholder="Recipe's Title"/>
+                <input asp-for="Title" class="form-control" placeholder="Recipe's Title" />
                 <span asp-validation-for="Title" class="text-danger"></span>
             </div>
             <div class="form-group">
+                <label asp-for="Image" class="control-label"></label>
+                <p>Please note: supported file types are .jpg, .jpeg and .png files</p>
+                <input type="file" name="fileUpload" />
+                <span asp-validation-for="Image" class="text-danger"></span>
+            </div>
+            <div class="form-group">
                 <label asp-for="Ingredients" class="control-label"></label>
-                <input asp-for="Ingredients" class="form-control" placeholder="Recipe's Ingredients"/>
+                <input asp-for="Ingredients" class="form-control" placeholder="Recipe's Ingredients" />
                 <span asp-validation-for="Ingredients" class="text-danger"></span>
             </div>
             <div class="form-group">
@@ -24,7 +38,7 @@
             </div>
             <div class="form-group">
                 <label asp-for="Servings" class="control-label"></label>
-                <input asp-for="Servings" class="form-control" placeholder="Number of Servings"/>
+                <input asp-for="Servings" class="form-control" placeholder="Number of Servings" />
                 <span asp-validation-for="Servings" class="text-danger"></span>
             </div>
             <div class="form-group">

@@ -45,13 +45,16 @@ namespace RecipeBlogApp.Controllers
             return View();
         }
         [HttpPost("createrecipe")]
-        public IActionResult CreateRecipeAsync(AddRecipeBindingModel recipeBindingModel, IFormFile ImageURL)
+        public IActionResult CreateRecipeAsync(AddRecipeBindingModel recipeBindingModel, IFormFile fileUpload)
         {
-            //create an entry in the recipes table - empty image for now
+            //get file
+            string image = GetFileBase64Async(fileUpload).Result;
+
+            //create an entry in the recipes table
             var recipeToCreate = new Recipe
             {
                 Title = recipeBindingModel.Title,
-                Image = "",
+                Image = image,
                 Ingredients = recipeBindingModel.Ingredients,
                 Method = recipeBindingModel.Method,
                 Servings = recipeBindingModel.Servings,
@@ -59,45 +62,93 @@ namespace RecipeBlogApp.Controllers
             dbContext.Recipes.Add(recipeToCreate);
             dbContext.SaveChanges();
 
-            //go to separate method to add image - just to make it faster
-            //when adding image method was inside this method, it took very long to create a post
-            return RedirectToAction("AddImage", new { id = recipeToCreate.ID });
+            //create an entry in the recipe cards table
+            var recipeCardToCreate = new RecipeCard
+            {
+                Recipe = recipeToCreate,
+                Title = recipeToCreate.Title,
+                Image = image,
+            };
+            dbContext.RecipeCards.Add(recipeCardToCreate);
+            dbContext.SaveChanges();
+
+            
+            return RedirectToAction("Index");
         }
 
-        [Route("addimage/{id:int}")]
-        public IActionResult AddImage(int id)
-        {
-            var recipeByID = dbContext.Recipes.FirstOrDefault(r => r.ID == id);
-            return View(recipeByID);
-        }
-        [HttpPost("addimage/{id:int}")]
-        public async Task<IActionResult> AddImageAsync(IFormFile fileUpload, int id)
+        //[Route("addimage/{id:int}")]
+        //public IActionResult AddImage(int id)
+        //{
+        //    var recipeByID = dbContext.Recipes.FirstOrDefault(r => r.ID == id);
+        //    return View(recipeByID);
+        //}
+        //[HttpPost("addimage/{id:int}")]
+        public async Task<string> GetFileBase64Async(IFormFile fileUpload)
         {
             //IForm code here was created using the example shown at https://code-maze.com/file-upload-aspnetcore-mvc/, alongside a discussion with an SME.
             var file = fileUpload;
             using var ms = new MemoryStream();
             await file.CopyToAsync(ms);
             var bytes = ms.ToArray();
-            var base64String = Convert.ToBase64String(bytes);
+            string base64String = Convert.ToBase64String(bytes);
 
-            //find and update that recipe's Image 
-            var recipeByID = dbContext.Recipes.FirstOrDefault(r => r.ID == id);
-            recipeByID.Image = base64String;
-            dbContext.SaveChanges();
+            ////find and update that recipe's Image 
+            //var recipeByID = dbContext.Recipes.FirstOrDefault(r => r.ID == id);
+            //recipeByID.Image = base64String;
+            //dbContext.SaveChanges();
 
-            //create an entry in the recipe cards table
-            var recipeCardToCreate = new RecipeCard
-            {
-                Recipe = recipeByID,
-                Title = recipeByID.Title,
-                Image = base64String,
-            };
-            dbContext.RecipeCards.Add(recipeCardToCreate);
-            dbContext.SaveChanges();
+            ////create an entry in the recipe cards table
+            //var recipeCardToCreate = new RecipeCard
+            //{
+            //    Recipe = recipeByID,
+            //    Title = recipeByID.Title,
+            //    Image = base64String,
+            //};
+            //dbContext.RecipeCards.Add(recipeCardToCreate);
+            //dbContext.SaveChanges();
 
-            return RedirectToAction("Index");
+            return base64String;
+
+            //return RedirectToAction("Index");
 
         }
+
+        ////UPDATE
+        //[Route("update/{id:int}")]
+        //public IActionResult Update(int id)
+        //{
+        //    var recipeById = dbContext.Recipes.FirstOrDefault(c => c.ID == id);
+        //    return View(recipeById);
+        //}
+        //[HttpPost]
+        //[Route("update/{id:int}")]
+        //public IActionResult Update(Recipe recipe, int id, IFormFile fileUpload)
+        //{
+        //    var recipeToUpdate = dbContext.Recipes.FirstOrDefault(r => r.ID == id);
+        //    recipeToUpdate.Title = recipe.Title;
+        //    //recipeToUpdate.Image = recipe.Image;
+        //    recipeToUpdate.Ingredients = recipe.Ingredients;
+        //    recipeToUpdate.Method = recipe.Method;
+        //    recipeToUpdate.Servings = recipe.Servings;
+
+        //    //Image
+        //    if ()
+        //    var file = fileUpload;
+        //    using var ms = new MemoryStream();
+        //    await file.CopyToAsync(ms);
+        //    var bytes = ms.ToArray();
+        //    var base64String = Convert.ToBase64String(bytes);
+
+        //    //find and update that recipe's Image 
+        //    var recipeByID = dbContext.Recipes.FirstOrDefault(r => r.ID == id);
+        //    recipeByID.Image = base64String;
+
+        //    dbContext.SaveChanges();
+        //    return RedirectToAction("Index");
+        //}
+
+
+
 
         //DELETE
         [Route("delete/{id:int}")]
