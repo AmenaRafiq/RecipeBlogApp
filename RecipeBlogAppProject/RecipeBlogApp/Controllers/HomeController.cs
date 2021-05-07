@@ -16,11 +16,14 @@ namespace RecipeBlogApp.Controllers
 {
     public class HomeController : Controller
     {
+        //this method makes the time to load the page longer so storing the string in a class now
         //Read from text file to get the binary for the placeholder image or the case where User does not upload an image file
         //private static string pathToNoImagePlaceholderFile = @"~/../Models/NoImagePlaceholderBinary64String.txt";
         //private readonly string NoImagePlaceholder = System.IO.File.ReadAllText(pathToNoImagePlaceholderFile);
 
-        //Get binary for no image placeholder (to use if User does not upload a file
+
+
+        //Get binary for no image placeholder (to use if User does not upload a file) from the class
         private readonly string NoImagePlaceholder = NoImagePlaceHolder.Placeholder; 
 
         private readonly ApplicationDbContext dbContext;
