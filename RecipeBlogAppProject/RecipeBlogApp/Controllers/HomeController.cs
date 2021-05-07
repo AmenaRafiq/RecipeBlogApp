@@ -16,6 +16,13 @@ namespace RecipeBlogApp.Controllers
 {
     public class HomeController : Controller
     {
+        //Read from text file to get the binary for the placeholder image or the case where User does not upload an image file
+        //private static string pathToNoImagePlaceholderFile = @"~/../Models/NoImagePlaceholderBinary64String.txt";
+        //private readonly string NoImagePlaceholder = System.IO.File.ReadAllText(pathToNoImagePlaceholderFile);
+
+        //Get binary for no image placeholder (to use if User does not upload a file
+        private readonly string NoImagePlaceholder = NoImagePlaceHolder.Placeholder; 
+
         private readonly ApplicationDbContext dbContext;
         public HomeController(ApplicationDbContext applicationDbContext)
         {
@@ -47,8 +54,19 @@ namespace RecipeBlogApp.Controllers
         [HttpPost("createrecipe")]
         public IActionResult CreateRecipeAsync(AddRecipeBindingModel recipeBindingModel, IFormFile fileUpload)
         {
-            //get base64String of file
-            string image = GetFileBase64Async(fileUpload).Result;
+            //Quick Validation for file uploads to avoid errors
+            string image;
+            //check if there is a new file to upload
+            if (fileUpload != null)
+            {
+                //get new image 
+                image = GetFileBase64Async(fileUpload).Result;
+            }
+            else
+            {
+                //assign to placeholder's binary
+                image = NoImagePlaceholder;
+            }
 
             //create an entry in the recipes table
             var recipeToCreate = new Recipe
@@ -72,7 +90,7 @@ namespace RecipeBlogApp.Controllers
             dbContext.RecipeCards.Add(recipeCardToCreate);
             dbContext.SaveChanges();
 
-            
+
             return RedirectToAction("Index");
         }
 
@@ -130,7 +148,7 @@ namespace RecipeBlogApp.Controllers
             {
                 recipecardToUpdate.Image = image;
             }
-            
+
 
             dbContext.SaveChanges();
             return RedirectToAction("Details", new { id = id });
