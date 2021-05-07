@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 using RecipeBlogApp.Data;
+using RecipeBlogApp.Interfaces;
 using RecipeBlogApp.Models;
 using RecipeBlogApp.Models.Binding;
 using System;
@@ -24,19 +25,19 @@ namespace RecipeBlogApp.Controllers
 
 
         //Get binary for no image placeholder (to use if User does not upload a file) from the class
-        private readonly string NoImagePlaceholder = NoImagePlaceHolder.Placeholder; 
+        private readonly string NoImagePlaceholder = NoImagePlaceHolder.Placeholder;
 
-        private readonly ApplicationDbContext dbContext;
-        public HomeController(ApplicationDbContext applicationDbContext)
+        private IRepositoryWrapper repo;
+        public HomeController(IRepositoryWrapper repositorywrapper)
         {
-            dbContext = applicationDbContext;
+            repo = repositorywrapper;
         }
 
         //READ
         //[Route("")]
         public IActionResult Index()
         {
-            var allCards = dbContext.RecipeCards.Include(r => r.Recipe).ToList();
+            var allCards = repo.RecipeCards.FindAll(r => r.Recipe);
             return View(allCards);
         }
 
@@ -44,7 +45,7 @@ namespace RecipeBlogApp.Controllers
         [Route("details/{id:int}")]
         public IActionResult Details(int id)
         {
-            var recipeByID = dbContext.Recipes.FirstOrDefault(r => r.ID == id);
+            var recipeByID = repo.Recipes.FindByCondition(r => r.ID == id).FirstOrDefault();
             return View(recipeByID);
         }
 
@@ -80,8 +81,8 @@ namespace RecipeBlogApp.Controllers
                 Method = recipeBindingModel.Method,
                 Servings = recipeBindingModel.Servings,
             };
-            dbContext.Recipes.Add(recipeToCreate);
-            dbContext.SaveChanges();
+            repo.Recipes.Create(recipeToCreate);
+            repo.Save();
 
             //create an entry in the recipe cards table
             var recipeCardToCreate = new RecipeCard
@@ -90,8 +91,8 @@ namespace RecipeBlogApp.Controllers
                 Title = recipeToCreate.Title,
                 Image = image,
             };
-            dbContext.RecipeCards.Add(recipeCardToCreate);
-            dbContext.SaveChanges();
+            repo.RecipeCards.Create(recipeCardToCreate);
+            repo.Save();
 
 
             return RedirectToAction("Index");
@@ -115,7 +116,7 @@ namespace RecipeBlogApp.Controllers
         [Route("update/{id:int}")]
         public IActionResult Update(int id)
         {
-            var recipeById = dbContext.Recipes.FirstOrDefault(c => c.ID == id);
+            var recipeById = repo.Recipes.FindByCondition(r => r.ID == id).FirstOrDefault();
             return View(recipeById);
         }
         [HttpPost]
@@ -131,7 +132,7 @@ namespace RecipeBlogApp.Controllers
             }
 
             //update the recipe
-            var recipeToUpdate = dbContext.Recipes.FirstOrDefault(r => r.ID == id);
+            var recipeToUpdate = repo.Recipes.FindByCondition(r => r.ID == id).FirstOrDefault();
             recipeToUpdate.Title = recipe.Title;
             //only overwrite image if a new file was uploaded
             if (image != null)
@@ -141,20 +142,20 @@ namespace RecipeBlogApp.Controllers
             recipeToUpdate.Ingredients = recipe.Ingredients;
             recipeToUpdate.Method = recipe.Method;
             recipeToUpdate.Servings = recipe.Servings;
-            dbContext.SaveChanges();
+            repo.Recipes.Update(recipeToUpdate);
+            repo.Save();
 
             //Update the Card
-            var recipecardToUpdate = dbContext.RecipeCards.FirstOrDefault(r => r.Recipe == recipeToUpdate);
+            var recipecardToUpdate = repo.RecipeCards.FindByCondition(r => r.Recipe == recipeToUpdate).FirstOrDefault();
             recipecardToUpdate.Title = recipe.Title;
             //only overwrite image if a new file was uploaded
             if (image != null)
             {
                 recipecardToUpdate.Image = image;
             }
-
-
-            dbContext.SaveChanges();
-            return RedirectToAction("Details", new { id = id });
+            repo.RecipeCards.Update(recipecardToUpdate);
+            repo.Save();
+            return RedirectToAction("Details", new { id = recipe.ID });
         }
 
         //DELETE
@@ -162,18 +163,18 @@ namespace RecipeBlogApp.Controllers
         public IActionResult Delete(int id)
         {
             //get the recipe
-            var recipeToDelete = dbContext.Recipes.FirstOrDefault(r => r.ID == id);
+            var recipeToDelete = repo.Recipes.FindByCondition(r => r.ID == id).FirstOrDefault();
 
             //use this to find the right card
-            var recipeCardToDelete = dbContext.RecipeCards.FirstOrDefault(r => r.Recipe == recipeToDelete);
+            var recipeCardToDelete = repo.RecipeCards.FindByCondition(r => r.Recipe == recipeToDelete).FirstOrDefault();
 
             //first delete the card due to the relation
-            dbContext.RecipeCards.Remove(recipeCardToDelete);
-            dbContext.SaveChanges();
+            repo.RecipeCards.Delete(recipeCardToDelete);
+            repo.Save();
 
             //delete the recipe from the recipes table
-            dbContext.Recipes.Remove(recipeToDelete);
-            dbContext.SaveChanges();
+            repo.Recipes.Delete(recipeToDelete);
+            repo.Save();
             return RedirectToAction("Index");
         }
 
