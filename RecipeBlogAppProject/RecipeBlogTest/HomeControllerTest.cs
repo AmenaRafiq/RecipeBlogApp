@@ -97,7 +97,22 @@ namespace RecipeBlogTest
 
         }
 
-        
+        [Fact]
+        public void DeleteRecipe_Test()
+        {
+            //Arrange
+            mockRepo.Setup(repo => repo.Recipes.FindByCondition(r => r.ID == It.IsAny<int>())).Returns(GetRecipes());
+            mockRepo.Setup(repo => repo.RecipeCards.FindByCondition(r => r.ID == It.IsAny<int>())).Returns(GetRecipeCards());
+            mockRepo.Setup(repo => repo.Recipes.Delete(GetRecipe()));
+            mockRepo.Setup(repo => repo.RecipeCards.Delete(GetRecipeCard()));
+
+            //Act
+            var controllerActionResult = homeController.Delete(It.IsAny<int>());
+
+            //Assert
+            Assert.NotNull(controllerActionResult);
+
+        }
 
         //Methods to generate recipes quickly to make testing easier
         private IEnumerable<Recipe> GetRecipes()
