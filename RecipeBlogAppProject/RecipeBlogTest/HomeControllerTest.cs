@@ -1,5 +1,4 @@
 using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
 using Moq;
 using RecipeBlogApp.Controllers;
 using RecipeBlogApp.Interfaces;
@@ -9,6 +8,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Text;
 using Xunit;
 
@@ -93,6 +93,24 @@ namespace RecipeBlogTest
             Assert.NotNull(file);
             Assert.NotNull(addRecipe);
 
+            Assert.NotNull(controllerActionResult);
+
+        }
+
+        [Fact]
+        public void UpdateRecipe_Test()
+        {
+            //Arrange
+            mockRepo.Setup(repo => repo.Recipes.FindByCondition(It.IsAny<Expression<Func<Recipe, bool>>>())).Returns(GetRecipes());
+            mockRepo.Setup(repo => repo.RecipeCards.FindByCondition(It.IsAny<Expression<Func<RecipeCard, bool>>>())).Returns(GetRecipeCards());
+            
+            mockRepo.Setup(repo => repo.Recipes.Update(It.IsAny<Recipe>())).Returns(GetRecipe());
+            mockRepo.Setup(repo => repo.RecipeCards.Update(It.IsAny<RecipeCard>())).Returns(GetRecipeCard());
+
+            //Act
+            var controllerActionResult = homeController.Update(GetRecipe(), It.IsAny<int>(), file);
+
+            //Assert
             Assert.NotNull(controllerActionResult);
 
         }
