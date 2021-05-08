@@ -80,7 +80,7 @@ namespace RecipeBlogTest
         }
 
         [Fact]
-        public void AddRecipe_Test()
+        public void CreateRecipe_Test()
         {
             //Arrange
             mockRepo.Setup(repo => repo.Recipes.Create(It.IsAny<Recipe>())).Returns(It.IsAny<Recipe>());
@@ -96,6 +96,8 @@ namespace RecipeBlogTest
             Assert.NotNull(controllerActionResult);
 
         }
+
+        
 
         //Methods to generate recipes quickly to make testing easier
         private IEnumerable<Recipe> GetRecipes()
