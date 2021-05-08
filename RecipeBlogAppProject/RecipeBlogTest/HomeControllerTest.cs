@@ -132,6 +132,17 @@ namespace RecipeBlogTest
 
         }
 
+        [Fact]
+        public void AboutPage_Test()
+        {
+            //Arrange
+            
+            //Act
+            var controllerActionResult = homeController.About();
+            //Assert
+            Assert.NotNull(controllerActionResult);
+        }
+
         //Methods to generate recipes quickly to make testing easier
         private IEnumerable<Recipe> GetRecipes()
         {

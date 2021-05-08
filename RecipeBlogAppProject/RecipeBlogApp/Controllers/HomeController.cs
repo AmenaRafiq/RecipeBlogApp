@@ -177,7 +177,7 @@ namespace RecipeBlogApp.Controllers
             return RedirectToAction("Index");
         }
 
-        public IActionResult Privacy()
+        public IActionResult About()
         {
             return View();
         }
