@@ -55,7 +55,7 @@ stages:
             ConnectionType: 'AzureRM'
             azureSubscription: 'avanade-connection'
             appType: 'webAppLinux'
-            WebAppName: 'amena-appservice'
+            WebAppName: 'AmenaRecipeBlog'
             packageForLinux: '$(System.DefaultWorkingDirectory)/'
             RuntimeStack: 'DOTNETCORE|5.0'
 
