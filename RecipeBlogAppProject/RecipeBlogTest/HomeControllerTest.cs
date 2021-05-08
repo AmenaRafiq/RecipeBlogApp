@@ -47,10 +47,21 @@ namespace RecipeBlogTest
 
 
         [Fact]
-        public void GetAllRecipes_Test()
+        public void GetAllRecipeCards_Test()
         {
             //Arrange
             mockRepo.Setup(repo => repo.RecipeCards.FindAll(r => r.Recipe)).Returns(GetRecipeCards());
+            //Act
+            var controllerActionResult = homeController.Index();
+            //Assert
+            Assert.NotNull(controllerActionResult);
+        }
+
+        [Fact]
+        public void GetAllRecipes_Test()
+        {
+            //Arrange
+            mockRepo.Setup(repo => repo.Recipes.FindByCondition(r => r.ID == It.IsAny<int>())).Returns(GetRecipes());
             //Act
             var controllerActionResult = homeController.Index();
             //Assert
