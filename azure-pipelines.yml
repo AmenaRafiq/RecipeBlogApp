@@ -9,7 +9,7 @@ stages:
     jobs: 
       - job: build
         pool:
-          vmImage: 'ubuntu-latest'
+          name: my-new-pool
 
         variables:
           buildConfiguration: 'Release'
@@ -41,7 +41,7 @@ stages:
     jobs:
       - job: release
         pool:
-              vmImage: 'ubuntu-latest'
+            name: my-new-pool
         steps:
         - task: DownloadBuildArtifacts@0
           inputs:
