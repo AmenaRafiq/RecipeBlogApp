@@ -46,12 +46,17 @@ namespace RecipeBlogTest
         }
 
 
-
         [Fact]
-        public void Test1()
+        public void GetAllRecipes_Test()
         {
-
+            //Arrange
+            mockRepo.Setup(repo => repo.RecipeCards.FindAll(r => r.Recipe)).Returns(GetRecipeCards());
+            //Act
+            var controllerActionResult = homeController.Index();
+            //Assert
+            Assert.NotNull(controllerActionResult);
         }
+
 
         //Methods to generate recipes quickly to make testing easier
         private IEnumerable<Recipe> GetRecipes()
@@ -65,6 +70,19 @@ namespace RecipeBlogTest
         private Recipe GetRecipe()
         {
             return GetRecipes().ToList()[0];
+        }
+
+        private IEnumerable<RecipeCard> GetRecipeCards()
+        {
+            var courses = new List<RecipeCard> {
+            new RecipeCard(){ ID = 1, Title = "RecipeCard1", Image = "image1", Recipe = GetRecipe() },
+            new RecipeCard(){ ID = 1, Title = "RecipeCard2", Image = "image2", Recipe = GetRecipe() }
+            };
+            return courses;
+        }
+        private RecipeCard GetRecipeCard()
+        {
+            return GetRecipeCards().ToList()[0];
         }
     }
 }
