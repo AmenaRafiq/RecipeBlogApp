@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Moq;
 using RecipeBlogApp.Controllers;
@@ -6,7 +7,9 @@ using RecipeBlogApp.Models;
 using RecipeBlogApp.Models.Binding;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
+using System.Text;
 using Xunit;
 
 namespace RecipeBlogTest
@@ -21,6 +24,7 @@ namespace RecipeBlogTest
         private Mock<IAddRecipe> addRecipeMock;
         private Mock<IRecipe> recipeMock;
         private List<IRecipe> recipesMock;
+        private IFormFile file;
 
         public HomeControllerTest()
         {
@@ -34,7 +38,14 @@ namespace RecipeBlogTest
             //sample model
             addRecipe = new AddRecipeBindingModel { ID = 1, Title = "Cake", Image = "image", Ingredients = "list of ingredients", Method = "steps", Servings = 4 };
 
-            // controller setup
+            //IFormFile setup
+            //Idea to create an in-memory instance of a form file is from user harishr at:
+            //https://stackoverflow.com/questions/36858542/how-to-mock-an-iformfile-for-a-unit-integration-test-in-asp-net-core-1-mvc-6/55953099
+            //Idea to make "stream content" inside a string variable from user schlingel in the comments
+            string fileContent = "hello";
+            file = new FormFile(new MemoryStream(Encoding.UTF8.GetBytes(fileContent)), 0, fileContent.Length, "Data", fileContent);
+
+            //controller setup
             var recipeCardMock = new Mock<IRecipeCard>();
             var recipeCardsMock = new List<IRecipeCard>() { recipeCardMock.Object };
             //var courseResultsMock = new Mock<IActionResult>();
@@ -63,11 +74,28 @@ namespace RecipeBlogTest
             //Arrange
             mockRepo.Setup(repo => repo.Recipes.FindByCondition(r => r.ID == It.IsAny<int>())).Returns(GetRecipes());
             //Act
-            var controllerActionResult = homeController.Index();
+            var controllerActionResult = homeController.Details(It.IsAny<int>());
             //Assert
             Assert.NotNull(controllerActionResult);
         }
 
+        [Fact]
+        public void AddRecipe_Test()
+        {
+            //Arrange
+            mockRepo.Setup(repo => repo.Recipes.Create(It.IsAny<Recipe>())).Returns(It.IsAny<Recipe>());
+            mockRepo.Setup(repo => repo.RecipeCards.Create(It.IsAny<RecipeCard>())).Returns(It.IsAny<RecipeCard>());
+
+            //Act
+            var controllerActionResult = homeController.CreateRecipe(addRecipe, file);
+
+            //Assert
+            Assert.NotNull(file);
+            Assert.NotNull(addRecipe);
+
+            Assert.NotNull(controllerActionResult);
+
+        }
 
         //Methods to generate recipes quickly to make testing easier
         private IEnumerable<Recipe> GetRecipes()

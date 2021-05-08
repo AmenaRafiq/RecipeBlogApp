@@ -56,7 +56,7 @@ namespace RecipeBlogApp.Controllers
             return View();
         }
         [HttpPost("createrecipe")]
-        public IActionResult CreateRecipeAsync(AddRecipeBindingModel recipeBindingModel, IFormFile fileUpload)
+        public IActionResult CreateRecipe(AddRecipeBindingModel recipeBindingModel, IFormFile fileUpload)
         {
             //Quick Validation for file uploads to avoid errors
             string image;
@@ -93,7 +93,6 @@ namespace RecipeBlogApp.Controllers
             };
             repo.RecipeCards.Create(recipeCardToCreate);
             repo.Save();
-
 
             return RedirectToAction("Index");
         }
