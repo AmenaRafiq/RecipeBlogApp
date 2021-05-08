@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace RecipeBlogApp.Interfaces
 {
-    interface IAddRecipe
+    public interface IAddRecipe
     {
         public int ID { get; set; }
         public string Title { get; set; }
