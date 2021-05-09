@@ -29,7 +29,7 @@ stages:
           displayName: 'dotnet test'
           inputs:
             command: 'test'
-            projects: 'RecipeBlogApp\RecipeBlogAppProject\RecipeBlogTest.csproj'
+            projects: 'RecipeBlogAppProject\RecipeBlogTest.csproj'
             arguments: '--configuration $(buildConfiguration) /p:CollectCoverage=true /p:CoverletOutputFormat=cobertura /p:CoverletOutput=$(Build.SourcesDirectory)/TestResults/Coverage/'
             testRunTitle: 'Testing'
         - task: PublishCodeCoverageResults@1
