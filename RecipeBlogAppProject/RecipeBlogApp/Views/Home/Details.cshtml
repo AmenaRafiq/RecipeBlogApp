@@ -35,9 +35,9 @@
 
         <img src="data:image/jpg;base64, @Model.Image" class="center" width="150" height="100" alt="Recipe's image">
 
-        <p class="show-white-space">List of Ingredients:<br /> @Html.DisplayFor(model => model.Ingredients)</p>
-        <p class="show-white-space">Method:<br /> @Html.DisplayFor(model => model.Method)</p>
-        <p class="show-white-space">Number of servings: @Html.DisplayFor(model => model.Servings)</p>
+        <p class="show-white-space"><b>Number of servings: </b> @Html.DisplayFor(model => model.Servings)</p>
+        <p class="show-white-space"><b>List of Ingredients:</b><br /> @Html.DisplayFor(model => model.Ingredients)</p>
+        <p class="show-white-space"><b>Method:</b><br /> @Html.DisplayFor(model => model.Method)</p>
         <br />
         <div class="center">
             <a class="my-text" asp-action="Index">Back to Home</a> |
