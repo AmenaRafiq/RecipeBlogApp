@@ -26,6 +26,18 @@ stages:
             projects: '**/*.csproj'
             arguments: '--configuration $(BuildConfiguration)'
         - task: DotNetCoreCLI@2
+          displayName: 'dotnet test'
+          inputs:
+            command: 'test'
+            projects: 'RecipeBlogApp\RecipeBlogAppProject\RecipeBlogTest\RecipeBlogTest.csproj'
+            arguments: '--configuration $(buildConfiguration) /p:CollectCoverage=true /p:CoverletOutputFormat=cobertura /p:CoverletOutput=$(Build.SourcesDirectory)/TestResults/Coverage/'
+            testRunTitle: 'Testing'
+        - task: PublishCodeCoverageResults@1
+          displayName: 'Publish code coverage report'
+          inputs:
+            codeCoverageTool: 'Cobertura'
+            summaryFileLocation: '$(Build.SourcesDirectory)/**/coverage.cobertura.xml'
+        - task: DotNetCoreCLI@2
           inputs:
             command: 'publish'
             publishWebProjects: true
