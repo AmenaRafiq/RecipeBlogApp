@@ -21,20 +21,17 @@
         <a style="color:#d39f66; text-align: center" asp-action="CreateRecipe">Create New Post</a>
     </p>
 
-    @*<div class="card-deck center">*@
-    <div class="container center">
+    <div class="container-fluid center">
         <div class="row">
             @foreach (var item in Model)
             {
                 <div class="col-sm-6 col-lg-3 py-2">
-                    <div class="card h-100">
                         <div class="card text-center bg-primary">
-                            <img class="card-img-top" src="data:image/jpg;base64, @item.Image" alt="Recipe's image">
+                            <img class="card-img-top img-fluid" src="data:image/jpg;base64, @item.Image" alt="Recipe's image">
                             <div class="card-body">
                                 <h5 class="card-text">@Html.ActionLink(@item.Title, "Details", new { id = item.Recipe.ID }, new { @style = "color:#d39f66;" })</h5>
                             </div>
                         </div>
-                    </div>
                 </div>
             }
         </div>
