@@ -2,24 +2,30 @@
 
 @{ ViewData["Title"] = "Index"; }
 
+<style>
+    .center {
+        margin: auto;
+    }
+</style>
+
+
 
 <body>
-    <h1>Recipes</h1>
+    <h1 style="color:#d39f66">Recipes</h1>
 
     <p>
-        <a asp-action="CreateRecipe">Create New Post</a>
+        <a style="color:#d39f66" asp-action="CreateRecipe">Create New Post</a>
     </p>
 
-    <div class="card-deck">
-            @foreach (var item in Model)
-            {
-                <div class="card">
-                    <img class="card-img-top" src="data:image/jpg;base64, @item.Image" style="height:128px; width:200px" alt="Recipe's image">
-                    <div class="card-body">
-                        <h5 class="card-title">@Html.DisplayFor(modelItem => item.Title)</h5>
-                        <p>@Html.ActionLink("View Recipe", "Details", new { id = item.Recipe.ID })</p>
-                    </div>
-                </div>}
-        </div>
+    <div class="card-deck center">
+        @foreach (var item in Model)
+        {
+            <div class="card text-center">
+                <img class="card-img-top" src="data:image/jpg;base64, @item.Image" style="height:128px; width:200px" alt="Recipe's image">
+                <div class="card-body">
+                    <h5 class="card-text">@Html.ActionLink(@item.Title, "Details", new { id = item.Recipe.ID }, new { @style = "color:#d39f66;" })</h5>
+                </div>
+            </div>}
+    </div>
 
 </body> 
