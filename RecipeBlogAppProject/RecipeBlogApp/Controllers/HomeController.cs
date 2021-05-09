@@ -22,8 +22,6 @@ namespace RecipeBlogApp.Controllers
         //private static string pathToNoImagePlaceholderFile = @"~/../Models/NoImagePlaceholderBinary64String.txt";
         //private readonly string NoImagePlaceholder = System.IO.File.ReadAllText(pathToNoImagePlaceholderFile);
 
-
-
         //Get binary for no image placeholder (to use if User does not upload a file) from the class
         private readonly string NoImagePlaceholder = NoImagePlaceHolder.Placeholder;
 
@@ -72,27 +70,32 @@ namespace RecipeBlogApp.Controllers
                 image = NoImagePlaceholder;
             }
 
-            //create an entry in the recipes table
-            var recipeToCreate = new Recipe
+            //Validation for empty input
+            if (recipeBindingModel.Title != null || recipeBindingModel.Ingredients != null || recipeBindingModel.Method != null)
             {
-                Title = recipeBindingModel.Title,
-                Image = image,
-                Ingredients = recipeBindingModel.Ingredients,
-                Method = recipeBindingModel.Method,
-                Servings = recipeBindingModel.Servings,
-            };
-            repo.Recipes.Create(recipeToCreate);
-            repo.Save();
+                //create an entry in the recipes table
+                var recipeToCreate = new Recipe
+                {
+                    Title = recipeBindingModel.Title,
+                    Image = image,
+                    Ingredients = recipeBindingModel.Ingredients,
+                    Method = recipeBindingModel.Method,
+                    Servings = recipeBindingModel.Servings,
+                };
+                repo.Recipes.Create(recipeToCreate);
+                repo.Save();
 
-            //create an entry in the recipe cards table
-            var recipeCardToCreate = new RecipeCard
-            {
-                Recipe = recipeToCreate,
-                Title = recipeToCreate.Title,
-                Image = image,
-            };
-            repo.RecipeCards.Create(recipeCardToCreate);
-            repo.Save();
+                //create an entry in the recipe cards table
+                var recipeCardToCreate = new RecipeCard
+                {
+                    Recipe = recipeToCreate,
+                    Title = recipeToCreate.Title,
+                    Image = image,
+                };
+                repo.RecipeCards.Create(recipeCardToCreate);
+                repo.Save();
+
+            }
 
             return RedirectToAction("Index");
         }
