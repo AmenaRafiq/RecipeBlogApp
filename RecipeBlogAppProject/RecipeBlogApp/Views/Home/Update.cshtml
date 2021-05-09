@@ -1,47 +1,63 @@
 ﻿@model RecipeBlogApp.Models.Recipe
 @{ ViewData["Title"] = "Update Recipe"; }
 
-<h1>Update Details for @Model.Title Recipe</h1>
+<style>
+    .center {
+        margin: auto;
+    }
 
-<div class="row">
-    <div class="col-md-4">
-        <form asp-action="Update" method="post" enctype="multipart/form-data">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <div class="form-group">
-                <label asp-for="Title" class="control-label"></label>
-                <input asp-for="Title" class="form-control" placeholder="Recipe's Title" />
-                <span asp-validation-for="Title" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Image" class="control-label"></label>
-                <p>Please note: supported file types are .jpg, .jpeg and .png files</p>
-                <input type="file" name="fileUpload" />
-                <span asp-validation-for="Image" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Ingredients" class="control-label"></label>
-                <textarea asp-for="Ingredients" class="form-control" placeholder="Recipe's Ingredients"></textarea>
-                <span asp-validation-for="Ingredients" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Method" class="control-label"></label>
-                <textarea asp-for="Method" class="form-control" placeholder="Recipe's Method"></textarea>
-                <span asp-validation-for="Method" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Servings" class="control-label"></label>
-                <input asp-for="Servings" class="form-control" placeholder="Number of Servings" />
-                <span asp-validation-for="Servings" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <input type="submit" value="Update" class="btn btn-primary" />
-            </div>
-        </form>
+    .my-text {
+        color: #d39f66;
+    }
+
+    .btn-primary {
+        background-color: #d39f66 !important;
+    }
+</style>
+
+<h1 class="my-text" style="text-align:center">Update Details for @Model.Title Recipe</h1>
+
+<div class="container-fluid center">
+    <div class="row my-text">
+        <div class="col-md-4 center">
+            <form asp-action="Update" method="post" enctype="multipart/form-data">
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                <div class="form-group">
+                    <label asp-for="Title" class="control-label"></label>
+                    <input asp-for="Title" class="form-control" placeholder="Recipe's Title" />
+                    <span asp-validation-for="Title" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Image" class="control-label"></label>
+                    <p>Please note: supported file types are .jpg, .jpeg and .png files</p>
+                    <input type="file" name="fileUpload" />
+                    <span asp-validation-for="Image" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Ingredients" class="control-label"></label>
+                    <textarea asp-for="Ingredients" class="form-control" placeholder="Recipe's Ingredients"></textarea>
+                    <span asp-validation-for="Ingredients" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Method" class="control-label"></label>
+                    <textarea asp-for="Method" class="form-control" placeholder="Recipe's Method"></textarea>
+                    <span asp-validation-for="Method" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Servings" class="control-label"></label>
+                    <input asp-for="Servings" class="form-control" placeholder="Number of Servings" />
+                    <span asp-validation-for="Servings" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <input type="submit" value="Update" class="btn btn-primary text-white" />
+                </div>
+            </form>
+        </div>
     </div>
 </div>
 
 <div>
-    <a asp-action="Index">Back to Home</a>
+    <a class="center my-text" asp-action="Index">Back to Home</a>
 </div>
 
 @section Scripts {
