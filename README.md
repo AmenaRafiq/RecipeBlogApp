@@ -66,15 +66,17 @@ AzureDevOps was used to create a Kanban Board to track the progress of the proje
 (Ben although the project is set to public I might need to add you as a member so you can fully access the board)
 
 The BackLog consists of the Epics and User Stories. 
-add image
+![Backlog image](https://github.com/AmenaRafiq/RecipeBlogApp/blob/main/DocsForReadME/Kanban-board.PNG)
 
 Sprints then break down these stories with the additions of child tasks. Two sprints were devised, unfinished work from Iteration 1 was moved to Iteration 2.
 
 [Iteration 1](https://dev.azure.com/amenarafiq/QA%20SFIA%20Project%20-%20Recipe%20Blog%20App/_sprints/taskboard/QA%20SFIA%20Project%20-%20Recipe%20Blog%20App%20Team/QA%20SFIA%20Project%20-%20Recipe%20Blog%20App/Iteration%201)
-add image
+
+![Iteration 1 image](https://github.com/AmenaRafiq/RecipeBlogApp/blob/main/DocsForReadME/sprint1.PNG)
 
 [Iteration 2](https://dev.azure.com/amenarafiq/QA%20SFIA%20Project%20-%20Recipe%20Blog%20App/_sprints/taskboard/QA%20SFIA%20Project%20-%20Recipe%20Blog%20App%20Team/QA%20SFIA%20Project%20-%20Recipe%20Blog%20App/Iteration%202)
-add image
+
+![Iteration 2 image](https://github.com/AmenaRafiq/RecipeBlogApp/blob/main/DocsForReadME/sprint2.PNG)
 
 The Boards were designed with columns that move a task along the board from left to right in stages of: 
 * New
