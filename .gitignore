@@ -44,7 +44,6 @@ bld/
 Generated\ Files/
 
 # MSTest test Results
-[Tt]est[Rr]esult*/
 [Bb]uild[Ll]og.*
 
 # NUnit
@@ -141,10 +140,6 @@ _TeamCity*
 .axoCover/*
 !.axoCover/settings.json
 
-# Visual Studio code coverage results
-*.coverage
-*.coveragexml
-
 # NCrunch
 _NCrunch_*
 .*crunch*.local.xml
@@ -176,6 +171,7 @@ publish/
 # Publish Web Output
 *.[Pp]ublish.xml
 *.azurePubxml
+RecipeBlogAppProject/RecipeBlogApp/Properties/ServiceDependencies/
 # Note: Comment the next line if you want to checkin your web deploy settings,
 # but database connection strings (with potential passwords) will be unencrypted
 *.pubxml
