@@ -3,44 +3,50 @@
 @{ ViewData["Title"] = "Index"; }
 
 @*<style>
-    #bg {
-        position: fixed;
-        top: -50%;
-        left: -50%;
-        width: 200%;
-        height: 200%;
-    }
-
-        #bg img {
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            margin: auto;
-            min-width: 50%;
-            min-height: 50%;
+        #bg {
+            position: fixed;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
         }
+
+            #bg img {
+                position: absolute;
+                top: 0;
+                left: 0;
+                right: 0;
+                bottom: 0;
+                margin: auto;
+                min-width: 50%;
+                min-height: 50%;
+            }
+    </style>
+
+    <div id="bg">
+        <img src="~/../Views/images/background-image.png" alt="">
+    </div>*@
+
+<style>
+body { background-image: url('https://github.com/AmenaRafiq/RecipeBlogApp/blob/front_end/RecipeBlogAppProject/RecipeBlogApp/Views/images/background-image.png'); background-repeat: no-repeat; background-attachment: fixed; background-size: cover; }
 </style>
+<body>
+    <h1>Home</h1>
+    <img src="https://github.com/AmenaRafiq/RecipeBlogApp/blob/front_end/RecipeBlogAppProject/RecipeBlogApp/Views/images/background-image.png" alt="bgimage">
 
-<div id="bg">
-    <img src="~/../Views/images/background-image.png" alt="">
-</div>*@
-         
-<h1>Home</h1>
-<img src="~\images\background-image.png" alt="bgimage">
+    <p>
+        <a asp-action="CreateRecipe">Create New Post</a>
+    </p>
+    @*<div class="card-deck">
+            @foreach (var item in Model)
+            {
+                <div class="card">
+                    <img class="card-img-top" src="data:image/jpg;base64, @item.Image" style="height:128px; width:200px" alt="Recipe's image">
+                    <div class="card-body">
+                        <h5 class="card-title">@Html.DisplayFor(modelItem => item.Title)</h5>
+                        <p>@Html.ActionLink("View Recipe", "Details", new { id = item.Recipe.ID })</p>
+                    </div>
+                </div>}
+        </div>*@
 
-<p>
-    <a asp-action="CreateRecipe">Create New Post</a>
-</p>
-@*<div class="card-deck">
-    @foreach (var item in Model)
-    {
-        <div class="card">
-            <img class="card-img-top" src="data:image/jpg;base64, @item.Image" style="height:128px; width:200px" alt="Recipe's image">
-            <div class="card-body">
-                <h5 class="card-title">@Html.DisplayFor(modelItem => item.Title)</h5>
-                <p>@Html.ActionLink("View Recipe", "Details", new { id = item.Recipe.ID })</p>
-            </div>
-        </div>}
-</div>*@
+</body> 
