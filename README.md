@@ -87,7 +87,7 @@ The Boards were designed with columns that move a task along the board from left
 
 ## Risk Assessment
 
-insert risk assessment
+The risk assessment matrix can be found [here](https://docs.google.com/spreadsheets/d/1fOGOw1QFJLBZzKTQS_wfZKSyT3ypEtKI7Sbr0aPOQQ4/edit#gid=0).
 
 ## Testing
 
