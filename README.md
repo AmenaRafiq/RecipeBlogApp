@@ -52,15 +52,13 @@ In order to achieve this, I have decided to produce a simple recipe blog applica
 
 Below is an Entity Relationship Diagram showing the structure of the database. It shows the tables and the relationship between them. There is a one to one relationship between a Recipe and a Recipe Card, thus when a user creates a recipe its resulting Recipe Card has to be created too.  
 
-insert image
-
-
+![Image for Database Structure](https://github.com/AmenaRafiq/RecipeBlogApp/blob/main/DocsForReadME/ER-diagram.PNG)
 
 ### CI Pipeline
 
 Below is the continuous integration pipeline diagram that displays the project's associated services and frameworks. It shows how the Git repository is used to be able to pull code to my local machine as well as be used by the CI server to run tests on a build agent, automatically build and deploy the app to Azure App Service. The pipeline is run by AzureDevOps and is configured to have a build stage and a release stage such that if the build stage fails, the app is not released/deployed.
 
-insert image
+![CI Pipeline image](https://github.com/AmenaRafiq/RecipeBlogApp/blob/main/DocsForReadME/CI-diagram.PNG)
 
 ## Project Tracking
 
@@ -96,13 +94,15 @@ insert risk assessment
 ### Console Output
 
 Below is a screenshot of the console output from running the tests which displays the number of tests passed or failed:
-insert image
+
+![Test console output image](https://github.com/AmenaRafiq/RecipeBlogApp/blob/main/DocsForReadME/test-console-output.PNG)
 
 ### Coverage Report
 
 Below is a screenshot of the test coverage report that has been generated to display a breakdown of the successfully tested code in the app. The report is located in the RecipeBlogTest project inside the TestResults folder. 
 The Controller code coverage is above the required 65%.
-insert image
+
+![Test Coverage Report image](https://github.com/AmenaRafiq/RecipeBlogApp/blob/main/DocsForReadME/coverage.PNG)
 
 
 ## Front-End Design
