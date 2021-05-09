@@ -2,42 +2,15 @@
 
 @{ ViewData["Title"] = "Index"; }
 
-@*<style>
-        #bg {
-            position: fixed;
-            top: -50%;
-            left: -50%;
-            width: 200%;
-            height: 200%;
-        }
 
-            #bg img {
-                position: absolute;
-                top: 0;
-                left: 0;
-                right: 0;
-                bottom: 0;
-                margin: auto;
-                min-width: 50%;
-                min-height: 50%;
-            }
-    </style>
-
-    <div id="bg">
-        <img src="~/../Views/images/background-image.png" alt="">
-    </div>*@
-
-<style>
-body { background-image: url('https://github.com/AmenaRafiq/RecipeBlogApp/blob/front_end/RecipeBlogAppProject/RecipeBlogApp/Views/images/background-image.png'); background-repeat: no-repeat; background-attachment: fixed; background-size: cover; }
-</style>
 <body>
-    <h1>Home</h1>
-    <img src="https://github.com/AmenaRafiq/RecipeBlogApp/blob/front_end/RecipeBlogAppProject/RecipeBlogApp/Views/images/background-image.png" alt="bgimage">
+    <h1>Recipes</h1>
 
     <p>
         <a asp-action="CreateRecipe">Create New Post</a>
     </p>
-    @*<div class="card-deck">
+
+    <div class="card-deck">
             @foreach (var item in Model)
             {
                 <div class="card">
@@ -47,6 +20,6 @@ body { background-image: url('https://github.com/AmenaRafiq/RecipeBlogApp/blob/f
                         <p>@Html.ActionLink("View Recipe", "Details", new { id = item.Recipe.ID })</p>
                     </div>
                 </div>}
-        </div>*@
+        </div>
 
 </body> 
