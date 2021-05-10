@@ -47,6 +47,21 @@ In order to achieve this, I have decided to produce a simple recipe blog applica
 #### Delete
 * Delete a Recipe
 
+### User Stories
+
+The following user stories served as the starting product backlog items, from which child tasks were devised.
+
+> As a User I want to be able to see a list of recipes on the blog so that I can select a recipe.
+> As a User I want to click on a recipe to view its title, image, ingredients, method and serving number so that I can use it to cook with.
+> As a User I want to be able to create a post on the blog so that I can add a recipe.
+> As a User I want to be able to enter a recipe title when I create a post so that I can identify each recipe.
+> As a User I want to be able to upload an image when I create a post so that I can show what the food looks like
+> As a User I want to be able to enter ingredients when I create a post so that I can list what is needed to cook the food.
+> As a User I want to be able to enter a method when I create a post so that I can explain how to cook the food.
+> As a User I want to be able to enter a serving number when I create a post so that it shows how many people this recipe will cater for.
+> As a User I want to be able to edit an existing recipe so that I can fix any errors or update it with new information.
+> As a User I want to be able to delete an existing recipe post so that I can remove content I don’t want showing on the blog anymore.
+
 ## Architecture
 ### Database Structure
 
