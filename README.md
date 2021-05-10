@@ -185,7 +185,7 @@ The About page is simple:
   * This could be implemented by creating a custom background image and a custom logo at the very least
   * Giving multiple themes as options to the user to select from and then applying that to the app would be a further stretch goal for a future improvement
 * Allowing the user to include images for the method's steps to help show the process more clearly
-  * Perhaps another database would be appropriate to store multiple images for each recipe
+  * Perhaps another database table would be appropriate to store multiple images for each recipe
 * Including more fields in the form to create a recipe such as meal type, prep time, allergy information, nutrional information etc
 * Making the text area in the create form for the ingredients and the method fields larger to make it easier to view what you are writing
   * Just need to add sizing to the html to make it larger
