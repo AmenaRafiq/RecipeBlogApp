@@ -91,11 +91,15 @@ The risk assessment matrix can be found [here](https://docs.google.com/spreadshe
 
 ## Testing
 
-[XUnit](https://xunit.net/) has been used to run unit tests. This tool makes use of an Assertion Library so that tests can be written to compare the result of a function to a known output. 
+Unit tests allow small pieces of code to be tested in isolation to test for logic. In this project, unit tests were conducted to test the CRUD functions in the Controller.
+
+[XUnit](https://xunit.net/) has been used to run the unit tests. This tool makes use of an Assertion Library so that tests can be written to compare the result of a function to a known output. 
+
+Integration tests could be considered somewhat out of scope as it was not taught how to conduct them.
 
 ### Console Output
 
-Below is a screenshot of the console output from running the tests which displays the number of tests passed or failed:
+Below is a screenshot of the console output from running the tests which displays the number of tests that passed or failed:
 
 ![Test console output image](https://github.com/AmenaRafiq/RecipeBlogApp/blob/main/DocsForReadME/test-console-output.PNG)
 
@@ -109,14 +113,59 @@ The Controller code coverage is above the required 65%.
 
 ## Front-End Design
 
--
+The front-end has been built in simple HTML using simple styling with Bootstrap. It is stable and functional. 
+
+Upon navigating to the URL, this is the home page that is presented to the user:
+
+![home page image]()
+
+They can see all of the blog posts in the form of recipe cards. There is a create new post button, which once clicked presents the following form:
+
+![create page image]()
+
+The user can enter the details to create a recipe, after which they are redirected to the Home page. If the user does not upload a file for the image, a placeholder image is added instead:
+
+![placeholder recipe image]()
+
+In the details view the same placeholder image appears:
+
+![placeholder recipe image2]()
+
+Clicking on a recipe card presents the recipe's details:
+
+![details page image]()
+
+Here they can see the full recipe. In addition they have the options to edit the existing recipe or delete it. Editing the recipe presents the following page:
+
+![update page image]()
+
+This page brings up the recipe in the same form as the create page but includes the existing data. The user can now overwrite any field. If they do not overwrite the image file, rest assured the existing image is still in place. Hitting the update button updates the recipe and brings the user back to the home page. 
+
+The About page is simple:
+
+![about page image]()
 
 ## Known Issues
--
+* If the user attempts to create a post without entering the Title, Ingredients or Method, the expected validation message (as seen with the Servings field) is not shown. Consequently, it was coded that the creation of the post does not go ahead and that the user is redirected to the home page. 
+* The pipeline succeeds all stages but the application is not shown on the URL 
+  * All steps to configure the pipeline were followed and this resulted in a pipeline that succeeds
+  * The reason for why the application does not appear on the URL is still unclear
+  * Consequently, the application has been deployed manually for this demo
+  
+![pipeline image]()
 
 ## Future Improvements
 
--
+* For starters (no pun intended!) I'd like the known issues to be resolved - the validation prompts should appear and the pipeline to be fixed
+* An improvement to the front-end to move from simple colouring to perhaps a more food-related theme
+  * This could be implemented by creating a custom background image and a custom logo at the very least
+  * Giving multiple themes as options to the user to select from and then applying that to the app would be a further stretch goal for a future improvement
+* Allowing the user to include images for the method's steps to help show the process more clearly
+  * Perhaps another database would be appropriate to store multiple images for each recipe
+* Including more fields in the form to create a recipe such as meal type, prep time, allergy information, nutrional information etc
+* Making the text area in the create form for the ingredients and the method fields larger to make it easier to view what you are writing
+  * Just need to add sizing to the html to make it larger
+  * An ideal scenario would be to to make it dynamic so the user can resize it to their liking
 
 ## Author
 
