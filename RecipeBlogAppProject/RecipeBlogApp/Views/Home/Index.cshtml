@@ -12,8 +12,6 @@
     }
 </style>
 
-
-
 <body>
     <h1 style="color:#d39f66; text-align: center">Recipes</h1>
 
@@ -21,18 +19,19 @@
         <a style="color:#d39f66" asp-action="CreateRecipe">Create New Post</a>
     </p>
 
+    @*Code to make the card stacking responsive based on solution found at: https://stackoverflow.com/questions/38895106/how-to-limit-number-of-columns-of-card-deck*@
     <div class="container-fluid center">
         <div class="row">
             @foreach (var item in Model)
             {
-                <div class="col-sm-6 col-lg-3 py-2">
-                        <div class="card text-center bg-primary">
-                            <img class="card-img-top img-fluid" src="data:image/jpg;base64, @item.Image" alt="Recipe's image">
-                            <div class="card-body">
-                                <h5 class="card-text">@Html.ActionLink(@item.Title, "Details", new { id = item.Recipe.ID }, new { @style = "color:#d39f66;" })</h5>
-                            </div>
-                        </div>
+            <div class="col-sm-6 col-lg-3 py-2">
+                <div class="card text-center bg-primary">
+                    <img class="card-img-top img-fluid" src="data:image/jpg;base64, @item.Image" alt="Recipe's image">
+                    <div class="card-body">
+                        <h5 class="card-text">@Html.ActionLink(@item.Title, "Details", new { id = item.Recipe.ID }, new { @style = "color:#d39f66;" })</h5>
+                    </div>
                 </div>
+            </div>
             }
         </div>
     </div>

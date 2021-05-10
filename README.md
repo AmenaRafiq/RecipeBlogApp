@@ -10,7 +10,7 @@ The project brief outlines the overall objective:
 
 > To create a CRUD application with the utilisation of supporting tools, methodologies and technologies that encapsulate all core modules covered during training.
 
-(A CRUD application implements 4 basic functionalities: create, read, update and delete). Core module that this project will encapsulate: Software Development Lifecycle, Agile development, Git, Databases, ASP.NET Core, Azure Core Services and Azure DevOps.
+(A CRUD application implements 4 basic functionalities: create, read, update and delete). Core modules that this project will encapsulate: Software Development Lifecycle, Agile development, Git, Databases, ASP.NET Core, Azure Core Services and Azure DevOps.
 
 ### Requirements
 
