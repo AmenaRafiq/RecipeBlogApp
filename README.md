@@ -117,33 +117,33 @@ The front-end has been built in simple HTML using simple styling with Bootstrap.
 
 Upon navigating to the URL, this is the home page that is presented to the user:
 
-![home page image]()
+![home page image](https://github.com/AmenaRafiq/RecipeBlogApp/blob/main/DocsForReadME/homepage.PNG)
 
 They can see all of the blog posts in the form of recipe cards. There is a create new post button, which once clicked presents the following form:
 
-![create page image]()
+![create page image](https://github.com/AmenaRafiq/RecipeBlogApp/blob/main/DocsForReadME/createpage.PNG)
 
 The user can enter the details to create a recipe, after which they are redirected to the Home page. If the user does not upload a file for the image, a placeholder image is added instead:
 
-![placeholder recipe image]()
+![placeholder recipe image](https://github.com/AmenaRafiq/RecipeBlogApp/blob/main/DocsForReadME/noimage.PNG)
 
 In the details view the same placeholder image appears:
 
-![placeholder recipe image2]()
+![placeholder recipe image2](https://github.com/AmenaRafiq/RecipeBlogApp/blob/main/DocsForReadME/noimage2.PNG)
 
 Clicking on a recipe card presents the recipe's details:
 
-![details page image]()
+![details page image](https://github.com/AmenaRafiq/RecipeBlogApp/blob/main/DocsForReadME/detailspage.PNG)
 
 Here they can see the full recipe. In addition they have the options to edit the existing recipe or delete it. Editing the recipe presents the following page:
 
-![update page image]()
+![update page image](https://github.com/AmenaRafiq/RecipeBlogApp/blob/main/DocsForReadME/updatepage.PNG)
 
 This page brings up the recipe in the same form as the create page but includes the existing data. The user can now overwrite any field. If they do not overwrite the image file, rest assured the existing image is still in place. Hitting the update button updates the recipe and brings the user back to the home page. 
 
 The About page is simple:
 
-![about page image]()
+![about page image](https://github.com/AmenaRafiq/RecipeBlogApp/blob/main/DocsForReadME/aboutpage.PNG)
 
 ## Known Issues
 * If the user attempts to create a post without entering the Title, Ingredients or Method, the expected validation message (as seen with the Servings field) is not shown. Consequently, it was coded that the creation of the post does not go ahead and that the user is redirected to the home page. 
@@ -152,7 +152,7 @@ The About page is simple:
   * The reason for why the application does not appear on the URL is still unclear
   * Consequently, the application has been deployed manually for this demo
   
-![pipeline image]()
+![pipeline image](https://github.com/AmenaRafiq/RecipeBlogApp/blob/main/DocsForReadME/pipeline-results.PNG)
 
 ## Future Improvements
 
